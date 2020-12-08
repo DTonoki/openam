@@ -87,13 +87,11 @@ public class WebAuthn4JValidatorImpl implements WebAuthnValidator {
 
             boolean _userVerificationRequired = config.isVerificationRequired(); 
             boolean _userPresenceRequired = true; 
-            List<String> _expectedExtensionIds = new ArrayList<String>();
-            _expectedExtensionIds.add("credProtect"); // Because of CTAPv2.1(draft!) Yubikey5 + GoogleChrome return "credProtect" extension when residentkey=true.
 
             RegistrationRequest _registrationRequest = new RegistrationRequest(_attestationObjectBytes, _clientDataJsonBytes, 
                     _clientExtensionJSON, _transports);
             RegistrationParameters _registrationParameters = new RegistrationParameters(_serverProperty, _userVerificationRequired, 
-                    _userPresenceRequired, _expectedExtensionIds);
+                    _userPresenceRequired);
 
             RegistrationData _registrationData;
             try{
@@ -160,7 +158,6 @@ public class WebAuthn4JValidatorImpl implements WebAuthnValidator {
 
             boolean _userVerificationRequired = config.isVerificationRequired(); 
             boolean _userPresenceRequired = true; 
-            List<String> _expectedExtensionIds = Collections.emptyList(); //OpenAM desn't use extension now.
 
             // OpenAM didn't store aaguid now. Use ZERO AAGUID.
             AAGUID _aaguid = AAGUID.ZERO;
@@ -193,8 +190,7 @@ public class WebAuthn4JValidatorImpl implements WebAuthnValidator {
                             _serverProperty,
                             _authenticator,
                             _userVerificationRequired,
-                            _userPresenceRequired,
-                            _expectedExtensionIds
+                            _userPresenceRequired
                     );
 
             AuthenticationData _authenticationData;
